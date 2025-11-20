@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seif Elden Hamdy | Back-End Developer</title>
+    <meta name="description" content="Portfolio of Seif Elden Hamdy, a Back-End Web Developer specializing in PHP and Laravel.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#FF2D20', // Laravel Red
+                        secondary: '#777BB4', // PHP Purple
+                        dark: '#0f172a',
+                        darker: '#020617',
+                        card: '#1e293b',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(255, 45, 32, 0.3);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #FF2D20, #777BB4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF2D20; 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white relative">
+
+    <!-- Gradient Background Blobs -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/10 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-secondary/10 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold font-mono tracking-tighter">
+                <span class="text-primary">&lt;</span>Seif<span class="text-secondary">Elden</span><span class="text-primary">/&gt;</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#about" class="hover:text-primary transition-colors">About</a>
+                <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-darker border-b border-gray-800">
+            <div class="px-6 py-4 flex flex-col space-y-4">
+                <a href="#about" class="block hover:text-primary">About</a>
+                <a href="#skills" class="block hover:text-primary">Skills</a>
+                <a href="#projects" class="block hover:text-primary">Projects</a>
+                <a href="#contact" class="block hover:text-primary">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-20 relative">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 space-y-6" data-aos="fade-up">
+                <div class="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold tracking-wide uppercase mb-2">
+                    <span class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"></span>
+                    Available for Work
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+                    Hi, I'm <br>
+                    <span class="gradient-text">Seif Elden</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 font-light">
+                    Back-End Web Developer specializing in <span class="text-primary font-semibold">PHP</span> & <span class="text-primary font-semibold">Laravel</span>.
+                </p>
+                <p class="text-gray-500 max-w-lg leading-relaxed">
+                    Computer Engineering student crafting robust, scalable RESTful APIs and complex system architectures.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#contact" class="px-8 py-3 bg-primary hover:bg-red-600 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg shadow-primary/25">
+                        Contact Me
+                    </a>
+                    <a href="https://github.com/seifelden222" target="_blank" class="px-8 py-3 border border-gray-700 hover:border-gray-500 bg-card hover:bg-gray-800 text-white rounded-lg font-semibold transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                </div>
+
+                <div class="flex gap-6 pt-6 text-gray-400">
+                    <a href="https://linkedin.com/in/seifelden-hamdy" target="_blank" class="hover:text-white transition-colors text-2xl"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="mailto:seifeldenhamdy@gmail.com" class="hover:text-white transition-colors text-2xl"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="order-1 md:order-2 flex justify-center relative">
+                <!-- Abstract Tech Illustration -->
+                <div class="relative w-64 h-64 md:w-96 md:h-96">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-2xl opacity-20 animate-pulse-slow"></div>
+                    <div class="relative z-10 w-full h-full border border-gray-800 bg-card/50 backdrop-blur-sm rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500">
+                        <div class="font-mono text-xs md:text-sm text-gray-300 p-6 w-full h-full overflow-hidden">
+<pre><code class="language-php">class Developer extends User {
+  
+  protected $stack = [
+    'PHP', 
+    'Laravel', 
+    'MySQL'
+  ];
+
+  public function build() {
+    return "Scalable APIs";
+  }
+
+}
+// Seif is coding...</code></pre>
+                        </div>
+                    </div>
+                    <!-- Floating Icons -->
+                    <div class="absolute -top-6 -right-6 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow">
+                        <i class="fa-brands fa-laravel text-4xl text-[#FF2D20]"></i>
+                    </div>
+                    <div class="absolute -bottom-8 -left-4 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow" style="animation-delay: 1.5s;">
+                        <i class="fa-brands fa-php text-4xl text-[#777BB4]"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-gray-500 hover:text-primary transition-colors">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6"><span class="text-primary">About</span> Me</h2>
+                    <div class="space-y-4 text-gray-300 leading-relaxed">
+                        <p>
+                            I am a passionate <strong>Computer Engineering Student</strong> at Mansoura University (Class of 2026), based in <strong>El Mansoura, Egypt</strong>.
+                        </p>
+                        <p>
+                            My journey in tech is defined by a strong, practical focus on designing and building robust back-end web applications using <span class="text-white font-semibold">PHP (OOP)</span> and the <span class="text-white font-semibold">Laravel</span> framework.
+                        </p>
+                        <p>
+                            I possess a deep understanding of <strong>RESTful APIs</strong>, <strong>MySQL</strong>, and <strong>Architecture patterns</strong> like MVC and Service Layers. I'm eager to leverage these technical skills in a challenging team environment, solving complex problems through clean, optimized code.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-card rounded-lg border border-gray-800">
+                            <h3 class="text-2xl font-bold text-white">3rd</h3>
+                            <p class="text-sm text-gray-400">Year Student</p>
+                        </div>
+                        <div class="p-4 bg-card rounded-lg border border-gray-800">
+                            <h3 class="text-2xl font-bold text-white">10+</h3>
+                            <p class="text-sm text-gray-400">Projects Built</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 w-full">
+                    <h2 class="text-2xl font-bold mb-6">Education</h2>
+                    <div class="relative border-l-2 border-gray-800 ml-3 space-y-8">
+                        <div class="relative pl-8">
+                            <span class="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full"></span>
+                            <h3 class="text-xl font-bold text-white">Faculty of Engineering</h3>
+                            <p class="text-secondary font-semibold">Mansoura University</p>
+                            <p class="text-sm text-gray-500 mt-1">2023 - Present (Expected Graduation: 2026)</p>
+                            <p class="text-gray-400 mt-2">Computer Engineering Department.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold mb-4 mt-10">Languages</h2>
+                    <div class="flex gap-4">
+                        <span class="px-4 py-2 bg-card rounded border border-gray-700 text-gray-300">Arabic (Native)</span>
+                        <span class="px-4 py-2 bg-card rounded border border-gray-700 text-gray-300">English (Fluent)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Technical <span class="text-primary">Arsenal</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">The technologies and tools I use to bring ideas to life.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Backend Core -->
+                <div class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-500">
+                            <i class="fa-solid fa-server text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Backend Core</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">PHP (OOP)</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Laravel 10/12</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">MySQL</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Eloquent ORM</span>
+                    </div>
+                </div>
+
+                <!-- Architecture -->
+                <div class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+                            <i class="fa-solid fa-sitemap text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Architecture</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">RESTful APIs</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">MVC Pattern</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Service Layer</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Design Patterns</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">DB Transactions</span>
+                    </div>
+                </div>
+
+                <!-- Tools & DevOps -->
+                <div class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
+                            <i class="fa-solid fa-toolbox text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Tools & Ops</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Git/GitHub</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Docker</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Composer</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">PHPUnit</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Postman</span>
+                    </div>
+                </div>
+
+                <!-- Security -->
+                <div class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500">
+                            <i class="fa-solid fa-shield-halved text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Security</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Laravel Sanctum</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Policies/Gates</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">Guzzle HTTP</span>
+                    </div>
+                </div>
+
+                 <!-- Frontend Basics -->
+                 <div class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+                            <i class="fa-brands fa-html5 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Frontend</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">JavaScript</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">HTML5/CSS3</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">TailwindCSS</span>
+                        <span class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700">React.js (Familiar)</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-darker">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured <span class="text-primary">Projects</span></h2>
+                    <p class="text-gray-400">A selection of back-end systems I've engineered.</p>
+                </div>
+                <a href="https://github.com/seifelden222" target="_blank" class="hidden md:inline-block text-primary hover:text-white transition-colors mt-4 md:mt-0">
+                    View all on GitHub <i class="fa-solid fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1: Smart URL Shortener API -->
+                <div class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"></div>
+                        <i class="fa-solid fa-link text-6xl text-gray-600 group-hover:text-primary transition-colors duration-300 transform group-hover:scale-110"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-primary transition-colors">Smart URL Shortener API</h3>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white" title="Code"><i class="fa-brands fa-github text-xl"></i></a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">
+                            Intelligent link management with comprehensive REST API, Sanctum auth, link expiration, webhooks, and real-time click analytics.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20">Laravel 10</span>
+                            <span class="text-xs px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20">Queues</span>
+                            <span class="text-xs px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20">Unit Tests</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Shop System -->
+                <div class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"></div>
+                        <i class="fa-solid fa-shop text-6xl text-gray-600 group-hover:text-secondary transition-colors duration-300 transform group-hover:scale-110"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-secondary transition-colors">Shop System</h3>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white" title="Code"><i class="fa-brands fa-github text-xl"></i></a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">
+                            Production-ready e-commerce backend. Features transactional orders, Filament Admin, RBAC, and containerized (Docker) environment.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20">Laravel 12</span>
+                            <span class="text-xs px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20">Filament</span>
+                            <span class="text-xs px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20">Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: EventFlow -->
+                <div class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"></div>
+                        <i class="fa-solid fa-calendar-check text-6xl text-gray-600 group-hover:text-green-500 transition-colors duration-300 transform group-hover:scale-110"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-green-500 transition-colors">EventFlow Platform</h3>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white" title="Code"><i class="fa-brands fa-github text-xl"></i></a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">
+                            Event management with interactive quizzes (auto-scoring), audit logging, and service-layer architecture. Integrates OpenWeatherMap API.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20">Laravel 10</span>
+                            <span class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20">REST API</span>
+                            <span class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20">Guzzle</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Project Card 4: SnapConvert -->
+                 <div class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"></div>
+                        <i class="fa-solid fa-image text-6xl text-gray-600 group-hover:text-purple-500 transition-colors duration-300 transform group-hover:scale-110"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-500 transition-colors">SnapConvert Tool</h3>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white" title="Code"><i class="fa-brands fa-github text-xl"></i></a>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6">
+                            Compact PHP image processing & QR tool. Supports configurable compression (WebP/AVIF), SVG handling, and secure upload validation.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">PHP 8+</span>
+                            <span class="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Composer</span>
+                            <span class="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20">Imagick</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                <a href="https://github.com/seifelden222" class="text-primary hover:text-white transition-colors font-semibold">View all projects on GitHub <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto bg-gradient-to-br from-card to-gray-900 rounded-2xl p-8 md:p-12 border border-gray-800 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-4">Let's <span class="text-primary">Connect</span></h2>
+                    <p class="text-gray-400">Open for freelance projects and job opportunities.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <a href="tel:01032484794" class="flex items-center gap-4 p-4 rounded-lg bg-darker border border-gray-800 hover:border-primary transition-all group">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Call Me</p>
+                                <p class="text-white font-semibold font-mono">01032484794</p>
+                            </div>
+                        </a>
+
+                        <a href="mailto:seifeldenhamdy@gmail.com" class="flex items-center gap-4 p-4 rounded-lg bg-darker border border-gray-800 hover:border-primary transition-all group">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Email Me</p>
+                                <p class="text-white font-semibold break-all">seifeldenhamdy@gmail.com</p>
+                            </div>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-4 p-4 rounded-lg bg-darker border border-gray-800 hover:border-primary transition-all group">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Location</p>
+                                <p class="text-white font-semibold">El Mansoura, Egypt</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="flex flex-col justify-center space-y-6">
+                        <p class="text-gray-300">
+                            I'm currently available for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="https://linkedin.com/in/seifelden-hamdy" target="_blank" class="flex-1 py-3 bg-[#0077b5] text-white rounded text-center font-semibold hover:opacity-90 transition-opacity">
+                                <i class="fa-brands fa-linkedin mr-2"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/seifelden222" target="_blank" class="flex-1 py-3 bg-[#333] text-white rounded text-center font-semibold hover:opacity-90 transition-opacity">
+                                <i class="fa-brands fa-github mr-2"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 Seif Elden Hamdy. All rights reserved.</p>
+        <p class="mt-2">Built with <i class="fa-solid fa-heart text-primary mx-1"></i> and Laravel Passion.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                menu.classList.add('hidden'); // Close mobile menu on click
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Sticky Navbar Background Change
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.replace('bg-opacity-0', 'bg-opacity-90');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
