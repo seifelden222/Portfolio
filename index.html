@@ -55,13 +55,13 @@
         color: #e2e8f0;
       }
       .glass-nav {
-        background: rgba(15, 2, 42, 0.8);
+        background: rgba(15, 23, 42, 0.8);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       }
       .skill-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 0px -10px rgba(255, 45, 2, 0);
+        box-shadow: 0 10px 30px -10px rgba(255, 45, 32, 0.3);
       }
       .gradient-text {
         background: linear-gradient(to right, #ff2d20, #777bb4);
@@ -76,7 +76,7 @@
         background: #020617;
       }
       ::-webkit-scrollbar-thumb {
-        background: #4155;
+        background: #334155;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
@@ -98,7 +98,7 @@
 
     <!-- Navigation -->
     <nav
-      class="fixed w-full z-50 glass-nav transition-all duration-00"
+      class="fixed w-full z-50 glass-nav transition-all duration-300"
       id="navbar"
     >
       <div
@@ -117,6 +117,9 @@
           <a href="#about" class="hover:text-primary transition-colors"
             >About</a
           >
+          <a href="#experience" class="hover:text-primary transition-colors"
+            >Experience</a
+          >
           <a href="#skills" class="hover:text-primary transition-colors"
             >Skills</a
           >
@@ -131,7 +134,7 @@
         <!-- Mobile Menu Button -->
         <button
           id="mobile-menu-btn"
-          class="md:hidden text-gray-00 hover:text-white focus:outline-none"
+          class="md:hidden text-gray-300 hover:text-white focus:outline-none"
         >
           <i class="fa-solid fa-bars text-2xl"></i>
         </button>
@@ -144,6 +147,7 @@
       >
         <div class="px-6 py-4 flex flex-col space-y-4">
           <a href="#about" class="block hover:text-primary">About</a>
+          <a href="#experience" class="block hover:text-primary">Experience</a>
           <a href="#skills" class="block hover:text-primary">Skills</a>
           <a href="#projects" class="block hover:text-primary">Projects</a>
           <a href="#contact" class="block hover:text-primary">Contact</a>
@@ -161,7 +165,7 @@
       >
         <div class="order-2 md:order-1 space-y-6" data-aos="fade-up">
           <div
-            class="inline-flex items-center px- py-1 rounded-full border border-primary/0 bg-primary/10 text-primary text-xs font-bold tracking-wide uppercase mb-2"
+            class="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold tracking-wide uppercase mb-2"
           >
             <span
               class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"
@@ -185,14 +189,14 @@
           <div class="flex flex-wrap gap-4 pt-4">
             <a
               href="#contact"
-              class="px-8 py- bg-primary hover:bg-red-600 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg shadow-primary/25"
+              class="px-8 py-3 bg-primary hover:bg-red-600 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg shadow-primary/25"
             >
               Contact Me
             </a>
             <a
               href="https://github.com/seifelden222"
               target="_blank"
-              class="px-8 py- border border-gray-700 hover:border-gray-500 bg-card hover:bg-gray-800 text-white rounded-lg font-semibold transition-all flex items-center gap-2"
+              class="px-8 py-3 border border-gray-700 hover:border-gray-500 bg-card hover:bg-gray-800 text-white rounded-lg font-semibold transition-all flex items-center gap-2"
             >
               <i class="fa-brands fa-github"></i> GitHub
             </a>
@@ -200,7 +204,7 @@
 
           <div class="flex gap-6 pt-6 text-gray-400">
             <a
-              href="https://www.linkedin.com/in/seifelden-hamdy-a566ba58"
+              href="https://www.linkedin.com/in/seifelden-hamdy-a566ba358"
               target="_blank"
               class="hover:text-white transition-colors text-2xl"
               ><i class="fa-brands fa-linkedin"></i
@@ -220,10 +224,10 @@
               class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-2xl opacity-20 animate-pulse-slow"
             ></div>
             <div
-              class="relative z-10 w-full h-full border border-gray-800 bg-card/50 backdrop-blur-sm rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl transform rotate- hover:rotate-0 transition-all duration-500"
+              class="relative z-10 w-full h-full border border-gray-800 bg-card/50 backdrop-blur-sm rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500"
             >
               <div
-                class="font-mono text-xs md:text-sm text-gray-00 p-6 w-full h-full overflow-hidden"
+                class="font-mono text-xs md:text-sm text-gray-300 p-6 w-full h-full overflow-hidden"
               >
                 <pre><code class="language-php">class Developer extends User {
   
@@ -243,7 +247,7 @@
             </div>
             <!-- Floating Icons -->
             <div
-              class="absolute -top-6 -right-6 bg-[#1e29b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow"
+              class="absolute -top-6 -right-6 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow"
             >
               <i class="fa-brands fa-laravel text-4xl text-[#FF2D20]"></i>
             </div>
@@ -313,305 +317,8 @@
             </div>
           </div>
 
-          <!-- Right Column: Experience & Education -->
+          <!-- Right Column: Education & Languages -->
           <div class="md:w-1/2 w-full">
-            <!-- Experience -->
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-              <i class="fa-solid fa-briefcase text-primary text-lg"></i>
-              Experience
-            </h2>
-            <div
-              class="relative border-l-2 border-gray-800 ml-3 space-y-8 mb-10"
-            >
-              <div class="relative pl-8">
-                <span
-                  class="absolute -left-[9px] top-0 w-4 h-4 bg-primary rounded-full shadow-lg shadow-primary/50"
-                ></span>
-                <h3 class="text-xl font-bold text-white">Back-End Developer</h3>
-                <p class="text-secondary font-semibold">ABM</p>
-                <p class="text-sm text-gray-500 mt-1">Jan 2025 – Present</p>
-
-                <p class="mt-3 text-sm text-gray-400 leading-relaxed">
-                  Building and maintaining Laravel-based backend systems for
-                  multi-tenant SaaS products, payments, and reusable platform
-                  integrations with a strong focus on API design, tenant
-                  isolation, and production reliability.
-                </p>
-
-                <div class="mt-5 space-y-4">
-                  <div class="rounded-xl border border-gray-800 bg-card/40 p-4">
-                    <div
-                      class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between"
-                    >
-                      <a
-                        href="https://blogs.flare99.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-base font-semibold text-white hover:text-primary transition-colors"
-                      >
-                        Blogs Center
-                      </a>
-                      <span class="text-xs text-primary font-mono"
-                        >Multi-Tenant SaaS Platform</span
-                      >
-                    </div>
-                    <ul class="mt-3 space-y-2 text-sm text-gray-400">
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Developed a multi-tenant blogging platform using
-                          Laravel and MySQL with domain-based tenant
-                          isolation.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Designed RESTful APIs for blogs, posts, categories,
-                          comments, reactions, and moderation workflows, and
-                          implemented JWT-based SSO integration with external
-                          systems.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Built admin panels for both central platform
-                          management and tenant-level control using
-                          Filament.</span
-                        >
-                      </li>
-                    </ul>
-                    <a
-                      href="https://blogs.flare99.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-white transition-colors"
-                    >
-                      View Project
-                      <i
-                        class="fa-solid fa-arrow-up-right-from-square text-xs"
-                      ></i>
-                    </a>
-                  </div>
-
-                  <div class="rounded-xl border border-gray-800 bg-card/40 p-4">
-                    <div
-                      class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between"
-                    >
-                      <a
-                        href="https://pay.flare99.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-base font-semibold text-white hover:text-primary transition-colors"
-                      >
-                        Payment Center
-                      </a>
-                      <span class="text-xs text-primary font-mono"
-                        >Multi-Tenant Payment Processing System</span
-                      >
-                    </div>
-                    <ul class="mt-3 space-y-2 text-sm text-gray-400">
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Integrated PayPal for secure payment processing,
-                          subscription handling, and reliable webhook-driven
-                          transaction workflows.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Developed and maintained RESTful APIs for
-                          multi-tenant payments, subscriptions, and transaction
-                          lifecycle management.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Owned post-deployment maintenance, production issue
-                          resolution, and integrations with internal platforms
-                          to support unified financial operations.</span
-                        >
-                      </li>
-                    </ul>
-                    <a
-                      href="https://pay.flare99.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-white transition-colors"
-                    >
-                      View Project
-                      <i
-                        class="fa-solid fa-arrow-up-right-from-square text-xs"
-                      ></i>
-                    </a>
-                  </div>
-
-                  <div class="rounded-xl border border-gray-800 bg-card/40 p-4">
-                    <div
-                      class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between"
-                    >
-                      <a
-                        href="https://resellers-sites.flare99.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-base font-semibold text-white hover:text-primary transition-colors"
-                      >
-                        Reseller Sites
-                      </a>
-                      <span class="text-xs text-primary font-mono"
-                        >Multi-Tenant Platform</span
-                      >
-                    </div>
-                    <ul class="mt-3 space-y-2 text-sm text-gray-400">
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Developed a multi-tenant backend for managing
-                          reseller websites, domains, tenant configurations, and
-                          client accounts.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Integrated Blogs Center and Payment Center services
-                          to deliver unified functionality across reseller
-                          platforms.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Implemented secure authentication, role-based access
-                          control, and scalable database structures for isolated
-                          client environments.</span
-                        >
-                      </li>
-                    </ul>
-                    <a
-                      href="https://resellers-sites.flare99.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-white transition-colors"
-                    >
-                      View Project
-                      <i
-                        class="fa-solid fa-arrow-up-right-from-square text-xs"
-                      ></i>
-                    </a>
-                  </div>
-
-                  <div class="rounded-xl border border-gray-800 bg-card/40 p-4">
-                    <div
-                      class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between"
-                    >
-                      <a
-                        href="https://captchaai.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-base font-semibold text-white hover:text-primary transition-colors"
-                      >
-                        CaptchaAI
-                      </a>
-                      <span class="text-xs text-primary font-mono"
-                        >Platform Modernization</span
-                      >
-                    </div>
-                    <ul class="mt-3 space-y-2 text-sm text-gray-400">
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Migrated the platform from Native PHP to Laravel to
-                          improve maintainability, scalability, and development
-                          speed.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Refactored backend structure and aligned the system
-                          with a more maintainable Laravel-based architecture
-                          for ongoing feature development.</span
-                        >
-                      </li>
-                    </ul>
-                    <a
-                      href="https://captchaai.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-white transition-colors"
-                    >
-                      View Project
-                      <i
-                        class="fa-solid fa-arrow-up-right-from-square text-xs"
-                      ></i>
-                    </a>
-                  </div>
-
-                  <div class="rounded-xl border border-gray-800 bg-card/40 p-4">
-                    <div
-                      class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between"
-                    >
-                      <h4 class="text-base font-semibold text-white">
-                        Blogs Package
-                      </h4>
-                      <span class="text-xs text-primary font-mono"
-                        >Reusable Laravel Package</span
-                      >
-                    </div>
-                    <ul class="mt-3 space-y-2 text-sm text-gray-400">
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Developed a reusable Laravel package to simplify
-                          integration with the Blogs Center platform across
-                          multiple products.</span
-                        >
-                      </li>
-                      <li class="flex items-start gap-2">
-                        <i
-                          class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
-                        ></i>
-                        <span
-                          >Designed service layers and integration APIs to
-                          standardize communication between systems and reduce
-                          duplicated implementation effort.</span
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Education -->
             <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
               <i class="fa-solid fa-graduation-cap text-secondary text-lg"></i>
@@ -646,6 +353,359 @@
                 class="px-4 py-2 bg-card rounded border border-gray-700 text-gray-300 text-sm"
                 >English (Fluent)</span
               >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section (NEW) -->
+    <section id="experience" class="py-20 bg-dark border-t border-gray-800/50">
+      <div class="container mx-auto px-6">
+        <div class="mb-12">
+          <h2
+            class="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3"
+          >
+            Professional <span class="text-primary">Experience</span>
+          </h2>
+          <p class="text-gray-400 max-w-2xl">
+            My professional journey and the key systems I've engineered.
+          </p>
+        </div>
+
+        <div
+          class="relative border-l-2 border-gray-800 ml-3 md:ml-6 pl-8 md:pl-10 py-4"
+        >
+          <!-- Timeline Node -->
+          <span
+            class="absolute -left-[11px] top-4 w-5 h-5 bg-primary rounded-full shadow-lg shadow-primary/50 border-4 border-[#0f172a]"
+          ></span>
+
+          <!-- Company Header -->
+          <div class="mb-10">
+            <div
+              class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2"
+            >
+              <div>
+                <h3 class="text-2xl font-bold text-white">
+                  Back-End Developer
+                </h3>
+                <p class="text-secondary font-semibold text-lg">ABM</p>
+              </div>
+              <span
+                class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full text-sm font-mono font-bold w-fit"
+                >Jan 2025 – Present</span
+              >
+            </div>
+            <p class="mt-4 text-gray-300 leading-relaxed max-w-4xl">
+              Building and maintaining Laravel-based backend systems for
+              multi-tenant SaaS products, payments, and reusable platform
+              integrations with a strong focus on API design, tenant isolation,
+              and production reliability.
+            </p>
+          </div>
+
+          <!-- ABM Projects Grid -->
+          <h4 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-gray-500 text-lg"></i> Key
+            Contributions @ ABM
+          </h4>
+
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Blogs Center Card -->
+            <div
+              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+            >
+              <i
+                class="fa-solid fa-blog absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-primary/10 transition-colors duration-300 transform -rotate-12"
+              ></i>
+              <div class="relative z-10 flex flex-col flex-grow">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0"
+                  >
+                    <i class="fa-solid fa-pen-nib"></i>
+                  </div>
+                  <h4
+                    class="text-lg font-bold text-white group-hover:text-primary transition-colors"
+                  >
+                    Blogs Center
+                  </h4>
+                </div>
+                <div class="mb-4">
+                  <span
+                    class="text-[10px] px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 font-mono tracking-wider uppercase"
+                    >Multi-Tenant SaaS</span
+                  >
+                </div>
+                <ul class="space-y-3 text-sm text-gray-400 mb-6 flex-grow">
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Developed a multi-tenant blogging platform using Laravel
+                      and MySQL with domain-based tenant isolation.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Designed RESTful APIs for posts, comments, moderation
+                      workflows, and JWT-based SSO integration.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-primary mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Built admin panels for both central platform management
+                      and tenant-level control using Filament.</span
+                    >
+                  </li>
+                </ul>
+                <a
+                  href="https://blogs.flare99.com/"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-primary transition-colors mt-auto w-fit"
+                >
+                  View Project
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Payment Center Card -->
+            <div
+              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-green-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+            >
+              <i
+                class="fa-solid fa-credit-card absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-green-500/10 transition-colors duration-300 transform -rotate-12"
+              ></i>
+              <div class="relative z-10 flex flex-col flex-grow">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 shrink-0"
+                  >
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                  </div>
+                  <h4
+                    class="text-lg font-bold text-white group-hover:text-green-500 transition-colors"
+                  >
+                    Payment Center
+                  </h4>
+                </div>
+                <div class="mb-4">
+                  <span
+                    class="text-[10px] px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-wider uppercase"
+                    >Payment System</span
+                  >
+                </div>
+                <ul class="space-y-3 text-sm text-gray-400 mb-6 flex-grow">
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-green-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Integrated PayPal for secure payment processing,
+                      subscriptions, and webhook-driven workflows.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-green-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Developed RESTful APIs for multi-tenant payments and
+                      transaction lifecycle management.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-green-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Owned post-deployment maintenance and internal platform
+                      integrations for unified operations.</span
+                    >
+                  </li>
+                </ul>
+                <a
+                  href="https://pay.flare99.com/"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-green-500 transition-colors mt-auto w-fit"
+                >
+                  View Project
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Reseller Sites Card -->
+            <div
+              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+            >
+              <i
+                class="fa-solid fa-sitemap absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-secondary/10 transition-colors duration-300 transform -rotate-12"
+              ></i>
+              <div class="relative z-10 flex flex-col flex-grow">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0"
+                  >
+                    <i class="fa-solid fa-server"></i>
+                  </div>
+                  <h4
+                    class="text-lg font-bold text-white group-hover:text-secondary transition-colors"
+                  >
+                    Reseller Sites
+                  </h4>
+                </div>
+                <div class="mb-4">
+                  <span
+                    class="text-[10px] px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20 font-mono tracking-wider uppercase"
+                    >Multi-Tenant Platform</span
+                  >
+                </div>
+                <ul class="space-y-3 text-sm text-gray-400 mb-6 flex-grow">
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-secondary mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Developed a multi-tenant backend for managing reseller
+                      websites, domains, and tenant configs.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-secondary mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Integrated Blogs Center and Payment Center services to
+                      deliver unified functionality.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-secondary mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Implemented secure auth, RBAC, and scalable structures
+                      for isolated client environments.</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- CaptchaAI Card -->
+            <div
+              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+            >
+              <i
+                class="fa-solid fa-robot absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-blue-500/10 transition-colors duration-300 transform -rotate-12"
+              ></i>
+              <div class="relative z-10 flex flex-col flex-grow">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0"
+                  >
+                    <i class="fa-solid fa-shield-halved"></i>
+                  </div>
+                  <h4
+                    class="text-lg font-bold text-white group-hover:text-blue-500 transition-colors"
+                  >
+                    CaptchaAI
+                  </h4>
+                </div>
+                <div class="mb-4">
+                  <span
+                    class="text-[10px] px-2 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 font-mono tracking-wider uppercase"
+                    >Modernization</span
+                  >
+                </div>
+                <ul class="space-y-3 text-sm text-gray-400 mb-6 flex-grow">
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-blue-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Migrated the platform from Native PHP to Laravel to
+                      improve maintainability and speed.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-blue-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Refactored backend structure aligning with modern Laravel
+                      architecture for ongoing feature development.</span
+                    >
+                  </li>
+                </ul>
+                <a
+                  href="https://captchaai.com/"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-500 transition-colors mt-auto w-fit"
+                >
+                  View Project
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Blogs Package Card -->
+            <div
+              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+            >
+              <i
+                class="fa-solid fa-cubes absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-purple-500/10 transition-colors duration-300 transform -rotate-12"
+              ></i>
+              <div class="relative z-10 flex flex-col flex-grow">
+                <div class="flex items-center gap-3 mb-4">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0"
+                  >
+                    <i class="fa-solid fa-box-open"></i>
+                  </div>
+                  <h4
+                    class="text-lg font-bold text-white group-hover:text-purple-500 transition-colors"
+                  >
+                    Blogs Package
+                  </h4>
+                </div>
+                <div class="mb-4">
+                  <span
+                    class="text-[10px] px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20 font-mono tracking-wider uppercase"
+                    >Laravel Package</span
+                  >
+                </div>
+                <ul class="space-y-3 text-sm text-gray-400 mb-6 flex-grow">
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-purple-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Developed a reusable Laravel package to simplify
+                      integration with the Blogs Center platform.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <i
+                      class="fa-solid fa-check text-purple-500 mt-1 min-w-[14px]"
+                    ></i>
+                    <span
+                      >Designed service layers and APIs to standardize
+                      communication and reduce duplicated effort.</span
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
