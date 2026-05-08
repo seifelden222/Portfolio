@@ -24,6 +24,9 @@
       rel="stylesheet"
     />
 
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -43,6 +46,20 @@
             animation: {
               "bounce-slow": "bounce 3s infinite",
               "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              blob: "blob 7s infinite",
+              float: "float 6s ease-in-out infinite",
+            },
+            keyframes: {
+              blob: {
+                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                "100%": { transform: "translate(0px, 0px) scale(1)" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
             },
           },
         },
@@ -53,21 +70,50 @@
       body {
         background-color: #020617;
         color: #e2e8f0;
+        overflow-x: hidden;
       }
       .glass-nav {
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(12px);
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .skill-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px -10px rgba(255, 45, 32, 0.3);
       }
       .gradient-text {
         background: linear-gradient(to right, #ff2d20, #777bb4);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: textShine 5s linear infinite;
       }
+      @keyframes textShine {
+        to {
+          background-position: 200% center;
+        }
+      }
+
+      /* Card Hover Glow Effects */
+      .hover-glow-primary:hover {
+        box-shadow: 0 0 25px -5px rgba(255, 45, 32, 0.3);
+      }
+      .hover-glow-secondary:hover {
+        box-shadow: 0 0 25px -5px rgba(119, 123, 180, 0.3);
+      }
+      .hover-glow-green:hover {
+        box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.3);
+      }
+      .hover-glow-blue:hover {
+        box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.3);
+      }
+      .hover-glow-yellow:hover {
+        box-shadow: 0 0 25px -5px rgba(234, 179, 8, 0.3);
+      }
+      .hover-glow-purple:hover {
+        box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.3);
+      }
+      .hover-glow-pink:hover {
+        box-shadow: 0 0 25px -5px rgba(236, 72, 153, 0.3);
+      }
+
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -82,17 +128,36 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #ff2d20;
       }
+
+      /* Scroll Progress Bar */
+      #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(to right, #ff2d20, #777bb4);
+        z-index: 100;
+        transition: width 0.1s ease-out;
+      }
     </style>
   </head>
   <body class="antialiased selection:bg-primary selection:text-white relative">
-    <!-- Gradient Background Blobs -->
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Gradient Background Blobs (Animated) -->
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
       <div
-        class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/10 rounded-full blur-[100px] animate-pulse-slow"
+        class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-blob mix-blend-screen"
       ></div>
       <div
-        class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-secondary/10 rounded-full blur-[100px] animate-pulse-slow"
+        class="absolute top-[20%] right-[-10%] w-96 h-96 bg-secondary/20 rounded-full blur-[120px] animate-blob mix-blend-screen"
         style="animation-delay: 2s"
+      ></div>
+      <div
+        class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-blob mix-blend-screen"
+        style="animation-delay: 4s"
       ></div>
     </div>
 
@@ -104,29 +169,44 @@
       <div
         class="container mx-auto px-6 py-4 flex justify-between items-center"
       >
-        <a href="#" class="text-2xl font-bold font-mono tracking-tighter">
-          <span class="text-primary">&lt;</span>Seif<span class="text-secondary"
-            >Elden</span
-          ><span class="text-primary">/&gt;</span>
+        <a href="#" class="text-2xl font-bold font-mono tracking-tighter group">
+          <span
+            class="text-primary group-hover:text-white transition-colors duration-300"
+            >&lt;</span
+          >Seif<span class="text-secondary">Elden</span
+          ><span
+            class="text-primary group-hover:text-white transition-colors duration-300"
+            >/&gt;</span
+          >
         </a>
 
         <!-- Desktop Menu -->
         <div
           class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide"
         >
-          <a href="#about" class="hover:text-primary transition-colors"
+          <a
+            href="#about"
+            class="hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
             >About</a
           >
-          <a href="#experience" class="hover:text-primary transition-colors"
+          <a
+            href="#experience"
+            class="hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
             >Experience</a
           >
-          <a href="#skills" class="hover:text-primary transition-colors"
+          <a
+            href="#skills"
+            class="hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
             >Skills</a
           >
-          <a href="#projects" class="hover:text-primary transition-colors"
+          <a
+            href="#projects"
+            class="hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
             >Projects</a
           >
-          <a href="#contact" class="hover:text-primary transition-colors"
+          <a
+            href="#contact"
+            class="hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary hover:after:w-full after:transition-all after:duration-300"
             >Contact</a
           >
         </div>
@@ -143,14 +223,26 @@
       <!-- Mobile Menu -->
       <div
         id="mobile-menu"
-        class="md:hidden hidden bg-darker border-b border-gray-800"
+        class="md:hidden hidden bg-darker/95 backdrop-blur-md border-b border-gray-800 absolute w-full"
       >
         <div class="px-6 py-4 flex flex-col space-y-4">
-          <a href="#about" class="block hover:text-primary">About</a>
-          <a href="#experience" class="block hover:text-primary">Experience</a>
-          <a href="#skills" class="block hover:text-primary">Skills</a>
-          <a href="#projects" class="block hover:text-primary">Projects</a>
-          <a href="#contact" class="block hover:text-primary">Contact</a>
+          <a href="#about" class="block hover:text-primary transition-colors"
+            >About</a
+          >
+          <a
+            href="#experience"
+            class="block hover:text-primary transition-colors"
+            >Experience</a
+          >
+          <a href="#skills" class="block hover:text-primary transition-colors"
+            >Skills</a
+          >
+          <a href="#projects" class="block hover:text-primary transition-colors"
+            >Projects</a
+          >
+          <a href="#contact" class="block hover:text-primary transition-colors"
+            >Contact</a
+          >
         </div>
       </div>
     </nav>
@@ -163,12 +255,17 @@
       <div
         class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center"
       >
-        <div class="order-2 md:order-1 space-y-6" data-aos="fade-up">
+        <div
+          class="order-2 md:order-1 space-y-6"
+          data-aos="fade-right"
+          data-aos-duration="1000"
+        >
           <div
-            class="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold tracking-wide uppercase mb-2"
+            class="inline-flex items-center px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold tracking-wide uppercase mb-2 hover:bg-primary/20 transition-colors cursor-default"
           >
             <span
               class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"
+              style="box-shadow: 0 0 10px #ff2d20"
             ></span>
             Available for Work
           </div>
@@ -176,86 +273,115 @@
             Hi, I'm <br />
             <span class="gradient-text">Seif Elden</span>
           </h1>
-          <p class="text-xl md:text-2xl text-gray-400 font-light">
+          <p
+            class="text-xl md:text-2xl text-gray-400 font-light"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             Back-End Web Developer specializing in
             <span class="text-primary font-semibold">PHP</span> &
             <span class="text-primary font-semibold">Laravel</span>.
           </p>
-          <p class="text-gray-500 max-w-lg leading-relaxed">
+          <p
+            class="text-gray-500 max-w-lg leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             Computer Engineering student crafting robust, scalable RESTful APIs
             and complex system architectures.
           </p>
 
-          <div class="flex flex-wrap gap-4 pt-4">
+          <div
+            class="flex flex-wrap gap-4 pt-4"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
             <a
               href="#contact"
-              class="px-8 py-3 bg-primary hover:bg-red-600 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg shadow-primary/25"
+              class="px-8 py-3 bg-primary hover:bg-red-600 text-white rounded-lg font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_-10px_rgba(255,45,32,0.5)]"
             >
               Contact Me
             </a>
             <a
               href="https://github.com/seifelden222"
               target="_blank"
-              class="px-8 py-3 border border-gray-700 hover:border-gray-500 bg-card hover:bg-gray-800 text-white rounded-lg font-semibold transition-all flex items-center gap-2"
+              class="px-8 py-3 border border-gray-700 hover:border-gray-400 bg-card/50 hover:bg-gray-800 backdrop-blur-sm text-white rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 hover:-translate-y-1"
             >
               <i class="fa-brands fa-github"></i> GitHub
             </a>
           </div>
 
-          <div class="flex gap-6 pt-6 text-gray-400">
+          <div
+            class="flex gap-6 pt-6 text-gray-400"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
             <a
               href="https://www.linkedin.com/in/seifelden-hamdy-a566ba358"
               target="_blank"
-              class="hover:text-white transition-colors text-2xl"
+              class="hover:text-[#0077b5] transition-colors duration-300 text-2xl transform hover:scale-110"
               ><i class="fa-brands fa-linkedin"></i
             ></a>
             <a
               href="mailto:seifeldenhamdy@gmail.com"
-              class="hover:text-white transition-colors text-2xl"
+              class="hover:text-primary transition-colors duration-300 text-2xl transform hover:scale-110"
               ><i class="fa-solid fa-envelope"></i
             ></a>
           </div>
         </div>
 
-        <div class="order-1 md:order-2 flex justify-center relative">
+        <div
+          class="order-1 md:order-2 flex justify-center relative"
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+        >
           <!-- Abstract Tech Illustration -->
-          <div class="relative w-64 h-64 md:w-96 md:h-96">
+          <div class="relative w-64 h-64 md:w-96 md:h-96 animate-float">
             <div
               class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-2xl opacity-20 animate-pulse-slow"
             ></div>
             <div
-              class="relative z-10 w-full h-full border border-gray-800 bg-card/50 backdrop-blur-sm rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500"
+              class="relative z-10 w-full h-full border border-gray-800 bg-card/40 backdrop-blur-md rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 hover:border-primary/50 group"
             >
+              <!-- Scanning line effect -->
+              <div
+                class="absolute top-0 left-0 w-full h-1 bg-primary/50 shadow-[0_0_10px_rgba(255,45,32,0.8)] opacity-0 group-hover:opacity-100 group-hover:animate-[scan_2s_ease-in-out_infinite]"
+              ></div>
+
               <div
                 class="font-mono text-xs md:text-sm text-gray-300 p-6 w-full h-full overflow-hidden"
               >
-                <pre><code class="language-php">class Developer extends User {
+                <pre><code class="language-php"><span class="text-secondary">class</span> <span class="text-yellow-400">Developer</span> <span class="text-secondary">extends</span> <span class="text-green-400">User</span> {
   
-  protected $stack = [
-    'PHP', 
-    'Laravel', 
-    'MySQL'
+  <span class="text-primary">protected</span> $stack = [
+    <span class="text-green-300">'PHP'</span>, 
+    <span class="text-green-300">'Laravel'</span>, 
+    <span class="text-green-300">'MySQL'</span>
   ];
 
-  public function build() {
-    return "Scalable APIs";
+  <span class="text-primary">public function</span> <span class="text-blue-400">build</span>() {
+    <span class="text-secondary">return</span> <span class="text-green-300">"Scalable APIs"</span>;
   }
 
 }
-// Seif is coding...</code></pre>
+<span class="text-gray-500">// Seif is coding...<span class="animate-pulse">_</span></span></code></pre>
               </div>
             </div>
             <!-- Floating Icons -->
             <div
-              class="absolute -top-6 -right-6 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow"
+              class="absolute -top-6 -right-6 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow hover:scale-110 transition-transform cursor-pointer"
             >
-              <i class="fa-brands fa-laravel text-4xl text-[#FF2D20]"></i>
+              <i
+                class="fa-brands fa-laravel text-4xl text-[#FF2D20] drop-shadow-[0_0_8px_rgba(255,45,32,0.5)]"
+              ></i>
             </div>
             <div
-              class="absolute -bottom-8 -left-4 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow"
+              class="absolute -bottom-8 -left-4 bg-[#1e293b] p-4 rounded-xl shadow-xl border border-gray-700 animate-bounce-slow hover:scale-110 transition-transform cursor-pointer"
               style="animation-delay: 1.5s"
             >
-              <i class="fa-brands fa-php text-4xl text-[#777BB4]"></i>
+              <i
+                class="fa-brands fa-php text-4xl text-[#777BB4] drop-shadow-[0_0_8px_rgba(119,123,180,0.5)]"
+              ></i>
             </div>
           </div>
         </div>
@@ -273,86 +399,138 @@
       </div>
     </section>
 
-    <!-- About & Experience Section -->
-    <section id="about" class="py-20 bg-darker">
-      <div class="container mx-auto px-6">
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-darker relative overflow-hidden">
+      <!-- Decorator -->
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
         <div class="flex flex-col md:flex-row gap-12 items-start">
           <!-- Left Column: About Text -->
-          <div class="md:w-1/2">
+          <div class="md:w-1/2" data-aos="fade-right">
             <h2 class="text-3xl md:text-4xl font-bold mb-6">
               <span class="text-primary">About</span> Me
             </h2>
-            <div class="space-y-4 text-gray-300 leading-relaxed">
+            <div class="space-y-4 text-gray-300 leading-relaxed text-lg">
               <p>
                 I am a passionate
-                <strong>Computer Engineering Student</strong> at Mansoura
-                University (Class of 2026), based in
-                <strong>El Mansoura, Egypt</strong>.
+                <strong class="text-white">Computer Engineering Student</strong>
+                at Mansoura University (Class of 2026), based in
+                <strong class="text-white">El Mansoura, Egypt</strong>.
               </p>
               <p>
                 My journey in tech is defined by a strong, practical focus on
                 designing and building robust back-end web applications using
-                <span class="text-white font-semibold">PHP (OOP)</span> and the
-                <span class="text-white font-semibold">Laravel</span> framework.
+                <span class="text-primary font-semibold">PHP (OOP)</span> and
+                the
+                <span class="text-primary font-semibold">Laravel</span>
+                framework.
               </p>
               <p>
-                I possess a deep understanding of <strong>RESTful APIs</strong>,
-                <strong>MySQL</strong>, and
-                <strong>Architecture patterns</strong> like MVC and Service
-                Layers. I'm eager to leverage these technical skills in a
-                challenging team environment, solving complex problems through
-                clean, optimized code.
+                I possess a deep understanding of
+                <strong class="text-white">RESTful APIs</strong>,
+                <strong class="text-white">MySQL</strong>, and
+                <strong class="text-white">Architecture patterns</strong> like
+                MVC and Service Layers. I'm eager to leverage these technical
+                skills in a challenging team environment, solving complex
+                problems through clean, optimized code.
               </p>
             </div>
 
             <div class="mt-8 grid grid-cols-2 gap-4">
-              <div class="p-4 bg-card rounded-lg border border-gray-800">
-                <h3 class="text-2xl font-bold text-white">3rd</h3>
-                <p class="text-sm text-gray-400">Year Student</p>
+              <div
+                class="p-6 bg-card/50 backdrop-blur-sm rounded-xl border border-gray-800 hover:border-primary/50 transition-colors group"
+              >
+                <h3
+                  class="text-3xl font-bold text-white group-hover:text-primary transition-colors"
+                >
+                  3rd
+                </h3>
+                <p class="text-sm text-gray-400 mt-1">Year Student</p>
               </div>
-              <div class="p-4 bg-card rounded-lg border border-gray-800">
-                <h3 class="text-2xl font-bold text-white">10+</h3>
-                <p class="text-sm text-gray-400">Projects Built</p>
+              <div
+                class="p-6 bg-card/50 backdrop-blur-sm rounded-xl border border-gray-800 hover:border-primary/50 transition-colors group"
+              >
+                <h3
+                  class="text-3xl font-bold text-white group-hover:text-primary transition-colors"
+                >
+                  15+
+                </h3>
+                <p class="text-sm text-gray-400 mt-1">Projects Built</p>
               </div>
             </div>
           </div>
 
           <!-- Right Column: Education & Languages -->
-          <div class="md:w-1/2 w-full">
+          <div class="md:w-1/2 w-full" data-aos="fade-left">
             <!-- Education -->
-            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-              <i class="fa-solid fa-graduation-cap text-secondary text-lg"></i>
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary"
+              >
+                <i class="fa-solid fa-graduation-cap text-xl"></i>
+              </div>
               Education
             </h2>
-            <div class="relative border-l-2 border-gray-800 ml-3 space-y-8">
-              <div class="relative pl-8">
+            <div class="relative border-l-2 border-gray-800 ml-5 space-y-8">
+              <div class="relative pl-8 group">
                 <span
-                  class="absolute -left-[9px] top-0 w-4 h-4 bg-secondary rounded-full"
+                  class="absolute -left-[11px] top-1 w-5 h-5 bg-secondary rounded-full border-4 border-darker group-hover:scale-125 transition-transform"
                 ></span>
-                <h3 class="text-xl font-bold text-white">
-                  Faculty of Engineering
-                </h3>
-                <p class="text-secondary font-semibold">Mansoura University</p>
-                <p class="text-sm text-gray-500 mt-1">
-                  2023 - Present (Expected Graduation: 2026)
-                </p>
-                <p class="text-gray-400 mt-2 text-sm">
-                  Computer Engineering Department.
-                </p>
+                <div
+                  class="bg-card/30 p-5 rounded-xl border border-gray-800/50 hover:border-secondary/30 transition-colors"
+                >
+                  <h3
+                    class="text-xl font-bold text-white group-hover:text-secondary transition-colors"
+                  >
+                    Faculty of Engineering
+                  </h3>
+                  <p class="text-secondary font-semibold mt-1">
+                    Mansoura University
+                  </p>
+                  <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
+                    <i class="fa-regular fa-calendar"></i> 2023 - Present
+                    (Expected: 2026)
+                  </p>
+                  <p
+                    class="text-gray-400 mt-3 text-sm bg-darker/50 p-3 rounded-lg border border-gray-800/50"
+                  >
+                    Computer Engineering Department.
+                  </p>
+                </div>
               </div>
             </div>
 
             <!-- Languages -->
-            <h2 class="text-2xl font-bold mb-4 mt-10">Languages</h2>
+            <h2 class="text-2xl font-bold mb-4 mt-12 flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-300"
+              >
+                <i class="fa-solid fa-language text-xl"></i>
+              </div>
+              Languages
+            </h2>
             <div class="flex gap-4">
-              <span
-                class="px-4 py-2 bg-card rounded border border-gray-700 text-gray-300 text-sm"
-                >Arabic (Native)</span
+              <div
+                class="px-5 py-3 bg-card/50 backdrop-blur-sm rounded-lg border border-gray-800 flex items-center gap-3 hover:border-gray-500 transition-colors"
               >
-              <span
-                class="px-4 py-2 bg-card rounded border border-gray-700 text-gray-300 text-sm"
-                >English (Fluent)</span
+                <span class="text-2xl">🇪🇬</span>
+                <div>
+                  <p class="text-white font-semibold text-sm">Arabic</p>
+                  <p class="text-xs text-gray-500">Native</p>
+                </div>
+              </div>
+              <div
+                class="px-5 py-3 bg-card/50 backdrop-blur-sm rounded-lg border border-gray-800 flex items-center gap-3 hover:border-gray-500 transition-colors"
               >
+                <span class="text-2xl">🇺🇸</span>
+                <div>
+                  <p class="text-white font-semibold text-sm">English</p>
+                  <p class="text-xs text-gray-500">Fluent</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -360,44 +538,85 @@
     </section>
 
     <!-- Experience Section (NEW) -->
-    <section id="experience" class="py-20 bg-dark border-t border-gray-800/50">
-      <div class="container mx-auto px-6">
-        <div class="mb-12">
+    <section
+      id="experience"
+      class="py-20 bg-dark border-t border-gray-800/50 relative"
+    >
+      <!-- Decorator -->
+      <div
+        class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="mb-16 text-center md:text-left" data-aos="fade-up">
           <h2
-            class="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3"
+            class="text-3xl md:text-5xl font-bold mb-4 inline-flex items-center gap-3"
           >
-            Professional <span class="text-primary">Experience</span>
+            Professional
+            <span class="text-primary relative inline-block">
+              Experience
+              <svg
+                class="absolute w-full h-3 -bottom-1 left-0 text-primary/30"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 10 100 5"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
           </h2>
-          <p class="text-gray-400 max-w-2xl">
-            My professional journey and the key systems I've engineered.
+          <p class="text-gray-400 max-w-2xl text-lg mt-4">
+            My professional journey and the key systems I've engineered at
+            enterprise level.
           </p>
         </div>
 
         <div
-          class="relative border-l-2 border-gray-800 ml-3 md:ml-6 pl-8 md:pl-10 py-4"
+          class="relative border-l-2 border-gray-800 ml-3 md:ml-6 pl-8 md:pl-12 py-4"
         >
           <!-- Timeline Node -->
           <span
-            class="absolute -left-[11px] top-4 w-5 h-5 bg-primary rounded-full shadow-lg shadow-primary/50 border-4 border-[#0f172a]"
+            class="absolute -left-[11px] top-4 w-5 h-5 bg-primary rounded-full shadow-[0_0_15px_rgba(255,45,32,0.6)] border-4 border-[#0f172a]"
           ></span>
 
           <!-- Company Header -->
-          <div class="mb-10">
+          <div class="mb-12" data-aos="fade-up">
             <div
-              class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2"
+              class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2 bg-card/30 p-6 rounded-2xl border border-gray-800/50 backdrop-blur-sm hover:border-primary/30 transition-colors"
             >
-              <div>
-                <h3 class="text-2xl font-bold text-white">
-                  Back-End Developer
-                </h3>
-                <p class="text-secondary font-semibold text-lg">ABM</p>
+              <div class="flex items-center gap-5">
+                <div
+                  class="w-16 h-16 rounded-xl bg-gradient-to-br from-gray-800 to-darker border border-gray-700 flex items-center justify-center text-2xl font-bold text-white shadow-inner"
+                >
+                  ABM
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-white">
+                    Back-End Developer
+                  </h3>
+                  <p
+                    class="text-primary font-semibold text-lg flex items-center gap-2 mt-1"
+                  >
+                    <i class="fa-solid fa-building text-sm"></i> ABM Company
+                  </p>
+                </div>
               </div>
-              <span
-                class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full text-sm font-mono font-bold w-fit"
-                >Jan 2025 – Present</span
-              >
+              <div class="flex flex-col items-end gap-2">
+                <span
+                  class="px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg text-sm font-mono font-bold flex items-center gap-2 shadow-[inset_0_0_10px_rgba(255,45,32,0.1)]"
+                >
+                  <i class="fa-regular fa-calendar-check"></i> Jan 2025 –
+                  Present
+                </span>
+              </div>
             </div>
-            <p class="mt-4 text-gray-300 leading-relaxed max-w-4xl">
+            <p
+              class="mt-6 text-gray-300 leading-relaxed max-w-4xl text-lg px-2"
+            >
               Building and maintaining Laravel-based backend systems for
               multi-tenant SaaS products, payments, and reusable platform
               integrations with a strong focus on API design, tenant isolation,
@@ -406,39 +625,49 @@
           </div>
 
           <!-- ABM Projects Grid -->
-          <h4 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-gray-500 text-lg"></i> Key
-            Contributions @ ABM
-          </h4>
+          <div class="flex items-center gap-4 mb-8" data-aos="fade-up">
+            <div class="h-px bg-gray-800 flex-grow"></div>
+            <h4
+              class="text-xl font-bold text-white flex items-center gap-2 px-4 border border-gray-800 rounded-full py-2 bg-darker"
+            >
+              <i class="fa-solid fa-layer-group text-primary text-lg"></i> Key
+              Contributions
+            </h4>
+            <div class="h-px bg-gray-800 flex-grow"></div>
+          </div>
 
           <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
             <!-- Central Blogs Card -->
             <div
-              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="group bg-card/60 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 hover:border-primary/50 hover:-translate-y-2 transition-all duration-300 hover-glow-primary relative overflow-hidden flex flex-col h-full"
             >
               <i
-                class="fa-solid fa-blog absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-primary/10 transition-colors duration-300 transform -rotate-12"
+                class="fa-solid fa-blog absolute -bottom-4 -right-4 text-8xl text-gray-800/20 group-hover:text-primary/5 transition-colors duration-500 transform -rotate-12 group-hover:scale-110"
               ></i>
               <div class="relative z-10 flex flex-col flex-grow">
-                <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center gap-4 mb-5">
                   <div
-                    class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0"
+                    class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform duration-300"
                   >
-                    <i class="fa-solid fa-pen-nib"></i>
+                    <i class="fa-solid fa-pen-nib text-xl"></i>
                   </div>
                   <h4
-                    class="text-lg font-bold text-white group-hover:text-primary transition-colors"
+                    class="text-xl font-bold text-white group-hover:text-primary transition-colors"
                   >
                     Central Blogs
                   </h4>
                 </div>
-                <div class="mb-4 shrink-0">
+                <div class="mb-5 shrink-0">
                   <span
-                    class="text-[10px] px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 font-mono tracking-wider uppercase"
+                    class="text-[10px] px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-mono tracking-widest uppercase shadow-[0_0_10px_rgba(255,45,32,0.1)]"
                     >SaaS / Multi-Tenant</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">
+                <p
+                  class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+                >
                   Built Central Blogs end-to-end as a Laravel multi-tenant
                   blogging platform, including tenant-aware routing, content
                   management APIs, HMAC-secured provisioning, admin autologin,
@@ -447,41 +676,47 @@
                 <a
                   href="https://blogs.99sync.com/"
                   target="_blank"
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-primary transition-colors mt-auto w-fit"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-primary transition-colors mt-auto w-fit group/link"
                 >
                   View Project
-                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                  <i
+                    class="fa-solid fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"
+                  ></i>
                 </a>
               </div>
             </div>
 
             <!-- Payment Center Card -->
             <div
-              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-green-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+              data-aos="fade-up"
+              data-aos-delay="200"
+              class="group bg-card/60 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 hover:border-green-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-green relative overflow-hidden flex flex-col h-full"
             >
               <i
-                class="fa-solid fa-credit-card absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-green-500/10 transition-colors duration-300 transform -rotate-12"
+                class="fa-solid fa-credit-card absolute -bottom-4 -right-4 text-8xl text-gray-800/20 group-hover:text-green-500/5 transition-colors duration-500 transform -rotate-12 group-hover:scale-110"
               ></i>
               <div class="relative z-10 flex flex-col flex-grow">
-                <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center gap-4 mb-5">
                   <div
-                    class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 shrink-0"
+                    class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 shrink-0 group-hover:scale-110 transition-transform duration-300"
                   >
-                    <i class="fa-solid fa-money-bill-transfer"></i>
+                    <i class="fa-solid fa-money-bill-transfer text-xl"></i>
                   </div>
                   <h4
-                    class="text-lg font-bold text-white group-hover:text-green-500 transition-colors"
+                    class="text-xl font-bold text-white group-hover:text-green-500 transition-colors"
                   >
                     Payment Center
                   </h4>
                 </div>
-                <div class="mb-4 shrink-0">
+                <div class="mb-5 shrink-0">
                   <span
-                    class="text-[10px] px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-wider uppercase"
+                    class="text-[10px] px-3 py-1.5 rounded-full bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-widest uppercase shadow-[0_0_10px_rgba(34,197,94,0.1)]"
                     >Payment Platform</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">
+                <p
+                  class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+                >
                   Implemented PayPal integration within Central Payment and
                   supported payment flows, callbacks, webhooks, subscription
                   issues, transaction status problems, and payment debugging.
@@ -489,41 +724,47 @@
                 <a
                   href="https://pay.99sync.com/"
                   target="_blank"
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-green-500 transition-colors mt-auto w-fit"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-green-500 transition-colors mt-auto w-fit group/link"
                 >
                   View Project
-                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                  <i
+                    class="fa-solid fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"
+                  ></i>
                 </a>
               </div>
             </div>
 
             <!-- Reseller Sites Card -->
             <div
-              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+              data-aos="fade-up"
+              data-aos-delay="300"
+              class="group bg-card/60 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 hover:border-secondary/50 hover:-translate-y-2 transition-all duration-300 hover-glow-secondary relative overflow-hidden flex flex-col h-full"
             >
               <i
-                class="fa-solid fa-sitemap absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-secondary/10 transition-colors duration-300 transform -rotate-12"
+                class="fa-solid fa-sitemap absolute -bottom-4 -right-4 text-8xl text-gray-800/20 group-hover:text-secondary/5 transition-colors duration-500 transform -rotate-12 group-hover:scale-110"
               ></i>
               <div class="relative z-10 flex flex-col flex-grow">
-                <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center gap-4 mb-5">
                   <div
-                    class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0"
+                    class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary shrink-0 group-hover:scale-110 transition-transform duration-300"
                   >
-                    <i class="fa-solid fa-server"></i>
+                    <i class="fa-solid fa-server text-xl"></i>
                   </div>
                   <h4
-                    class="text-lg font-bold text-white group-hover:text-secondary transition-colors"
+                    class="text-xl font-bold text-white group-hover:text-secondary transition-colors"
                   >
                     Reseller Sites
                   </h4>
                 </div>
-                <div class="mb-4 shrink-0">
+                <div class="mb-5 shrink-0">
                   <span
-                    class="text-[10px] px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20 font-mono tracking-wider uppercase"
+                    class="text-[10px] px-3 py-1.5 rounded-full bg-secondary/10 text-secondary border border-secondary/20 font-mono tracking-widest uppercase shadow-[0_0_10px_rgba(119,123,180,0.1)]"
                     >Multi-Tenant Platform</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">
+                <p
+                  class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+                >
                   Integrated Reseller Sites with Blogs Center and Payment Center
                   workflows, including blog provisioning, checkout,
                   subscriptions, wallet top-ups, webhooks, and tenant-aware API
@@ -532,86 +773,96 @@
                 <a
                   href="https://test.flare99.com"
                   target="_blank"
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-secondary transition-colors mt-auto w-fit"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-secondary transition-colors mt-auto w-fit group/link"
                 >
                   View Project
-                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                  <i
+                    class="fa-solid fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"
+                  ></i>
                 </a>
               </div>
             </div>
 
             <!-- Reseller Admin Card -->
             <div
-              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-yellow-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+              data-aos="fade-up"
+              data-aos-delay="400"
+              class="group bg-card/60 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 hover:border-yellow-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-yellow relative overflow-hidden flex flex-col h-full"
             >
               <i
-                class="fa-solid fa-users-gear absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-yellow-500/10 transition-colors duration-300 transform -rotate-12"
+                class="fa-solid fa-users-gear absolute -bottom-4 -right-4 text-8xl text-gray-800/20 group-hover:text-yellow-500/5 transition-colors duration-500 transform -rotate-12 group-hover:scale-110"
               ></i>
               <div class="relative z-10 flex flex-col flex-grow">
-                <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center gap-4 mb-5">
                   <div
-                    class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0"
+                    class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0 group-hover:scale-110 transition-transform duration-300"
                   >
-                    <i class="fa-solid fa-user-tie"></i>
+                    <i class="fa-solid fa-user-tie text-xl"></i>
                   </div>
                   <h4
-                    class="text-lg font-bold text-white group-hover:text-yellow-500 transition-colors"
+                    class="text-xl font-bold text-white group-hover:text-yellow-500 transition-colors"
                   >
                     Reseller Admin
                   </h4>
                 </div>
-                <div class="mb-4 shrink-0">
+                <div class="mb-5 shrink-0">
                   <span
-                    class="text-[10px] px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 font-mono tracking-wider uppercase"
+                    class="text-[10px] px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 font-mono tracking-widest uppercase shadow-[0_0_10px_rgba(234,179,8,0.1)]"
                     >Operations Platform</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">
+                <p
+                  class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+                >
                   Improved Reseller Admin backend performance and updated API
                   endpoints for reseller operations, including site management,
                   orders, balances, payment flows, and internal service
                   integrations.
                 </p>
-
-                 <a
+                <a
                   href="https://staging.resellers-admin.flare99.com"
                   target="_blank"
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-secondary transition-colors mt-auto w-fit"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-yellow-500 transition-colors mt-auto w-fit group/link"
                 >
                   View Project
-                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                  <i
+                    class="fa-solid fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"
+                  ></i>
                 </a>
-                <!-- Internal Dashboard, no public link -->
               </div>
             </div>
 
             <!-- CaptchaAI Card -->
             <div
-              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-blue-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+              data-aos="fade-up"
+              data-aos-delay="500"
+              class="group bg-card/60 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 hover:border-blue-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-blue relative overflow-hidden flex flex-col h-full"
             >
               <i
-                class="fa-solid fa-robot absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-blue-500/10 transition-colors duration-300 transform -rotate-12"
+                class="fa-solid fa-robot absolute -bottom-4 -right-4 text-8xl text-gray-800/20 group-hover:text-blue-500/5 transition-colors duration-500 transform -rotate-12 group-hover:scale-110"
               ></i>
               <div class="relative z-10 flex flex-col flex-grow">
-                <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center gap-4 mb-5">
                   <div
-                    class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0"
+                    class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0 group-hover:scale-110 transition-transform duration-300"
                   >
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
                   </div>
                   <h4
-                    class="text-lg font-bold text-white group-hover:text-blue-500 transition-colors"
+                    class="text-xl font-bold text-white group-hover:text-blue-500 transition-colors"
                   >
                     CaptchaAI
                   </h4>
                 </div>
-                <div class="mb-4 shrink-0">
+                <div class="mb-5 shrink-0">
                   <span
-                    class="text-[10px] px-2 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 font-mono tracking-wider uppercase"
+                    class="text-[10px] px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 font-mono tracking-widest uppercase shadow-[0_0_10px_rgba(59,130,246,0.1)]"
                     >SaaS Modernization</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">
+                <p
+                  class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+                >
                   Contributed to migrating CaptchaAI legacy PHP modules to
                   Laravel and integrated the platform with Blogs Center,
                   improving backend structure, maintainability, and
@@ -620,41 +871,47 @@
                 <a
                   href="https://captchaai.com/"
                   target="_blank"
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-500 transition-colors mt-auto w-fit"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-blue-500 transition-colors mt-auto w-fit group/link"
                 >
                   View Project
-                  <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                  <i
+                    class="fa-solid fa-arrow-right transform group-hover/link:translate-x-1 transition-transform"
+                  ></i>
                 </a>
               </div>
             </div>
 
             <!-- Blogs Package Card -->
             <div
-              class="group bg-card rounded-xl border border-gray-800 p-6 hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden flex flex-col h-full"
+              data-aos="fade-up"
+              data-aos-delay="600"
+              class="group bg-card/60 backdrop-blur-sm rounded-2xl border border-gray-800 p-6 hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-purple relative overflow-hidden flex flex-col h-full"
             >
               <i
-                class="fa-solid fa-cubes absolute -bottom-4 -right-4 text-8xl text-gray-800/30 group-hover:text-purple-500/10 transition-colors duration-300 transform -rotate-12"
+                class="fa-solid fa-cubes absolute -bottom-4 -right-4 text-8xl text-gray-800/20 group-hover:text-purple-500/5 transition-colors duration-500 transform -rotate-12 group-hover:scale-110"
               ></i>
               <div class="relative z-10 flex flex-col flex-grow">
-                <div class="flex items-center gap-3 mb-4">
+                <div class="flex items-center gap-4 mb-5">
                   <div
-                    class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0"
+                    class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0 group-hover:scale-110 transition-transform duration-300"
                   >
-                    <i class="fa-solid fa-box-open"></i>
+                    <i class="fa-solid fa-box-open text-xl"></i>
                   </div>
                   <h4
-                    class="text-lg font-bold text-white group-hover:text-purple-500 transition-colors"
+                    class="text-xl font-bold text-white group-hover:text-purple-500 transition-colors"
                   >
                     Blogs Package
                   </h4>
                 </div>
-                <div class="mb-4 shrink-0">
+                <div class="mb-5 shrink-0">
                   <span
-                    class="text-[10px] px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20 font-mono tracking-wider uppercase"
+                    class="text-[10px] px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20 font-mono tracking-widest uppercase shadow-[0_0_10px_rgba(168,85,247,0.1)]"
                     >Laravel Package</span
                   >
                 </div>
-                <p class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed">
+                <p
+                  class="text-sm text-gray-400 mb-6 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+                >
                   Developed a reusable Laravel package for seamless integration
                   with Blogs Center, streamlining tenant onboarding and content
                   integration across internal platforms.
@@ -667,189 +924,202 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-dark">
-      <div class="container mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
-            Technical <span class="text-primary">Arsenal</span>
+    <section id="skills" class="py-20 bg-dark relative">
+      <!-- Background pattern -->
+      <div
+        class="absolute inset-0 opacity-[0.02] mix-blend-overlay"
+        style="
+          background-image: radial-gradient(#fff 1px, transparent 1px);
+          background-size: 30px 30px;
+        "
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2 class="text-3xl md:text-5xl font-bold mb-4">
+            Technical
+            <span class="text-primary relative inline-block">
+              Arsenal
+              <svg
+                class="absolute w-full h-3 -bottom-1 left-0 text-primary/30"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 10 100 5"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="transparent"
+                />
+              </svg>
+            </span>
           </h2>
-          <p class="text-gray-400 max-w-2xl mx-auto">
-            The technologies and tools I use to bring ideas to life.
+          <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-4">
+            The core technologies, architectures, and tools I use to bring
+            complex backend systems to life.
           </p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Backend Development -->
           <div
-            class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+            class="bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-gray-800 hover:border-red-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-primary group"
           >
-            <div class="flex items-center gap-3 mb-6">
+            <div
+              class="flex items-center gap-4 mb-8 border-b border-gray-800/50 pb-4"
+            >
               <div
-                class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-500"
+                class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_0_10px_rgba(239,68,68,0.2)]"
               >
-                <i class="fa-solid fa-server text-xl"></i>
+                <i class="fa-solid fa-server text-2xl"></i>
               </div>
-              <h3 class="text-xl font-bold">Backend Development</h3>
+              <h3
+                class="text-xl font-bold group-hover:text-red-500 transition-colors"
+              >
+                Backend Dev
+              </h3>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >PHP</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >OOP</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >Laravel</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >MVC</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >RESTful APIs</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >Service Layer</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >Laravel Packages</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Middleware</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Form Requests</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >API Resources</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >Queues & Jobs</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-red-500/50 hover:text-white transition-colors cursor-default"
                 >Events</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Notifications</span
               >
             </div>
           </div>
 
           <!-- SaaS & APIs -->
           <div
-            class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+            class="bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-gray-800 hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-purple group"
           >
-            <div class="flex items-center gap-3 mb-6">
+            <div
+              class="flex items-center gap-4 mb-8 border-b border-gray-800/50 pb-4"
+            >
               <div
-                class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500"
+                class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_0_10px_rgba(168,85,247,0.2)]"
               >
-                <i class="fa-solid fa-cloud text-xl"></i>
+                <i class="fa-solid fa-cloud text-2xl"></i>
               </div>
-              <h3 class="text-xl font-bold">SaaS & APIs</h3>
+              <h3
+                class="text-xl font-bold group-hover:text-purple-500 transition-colors"
+              >
+                SaaS & APIs
+              </h3>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Multi-Tenancy</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Tenant-Aware Routing</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Provisioning APIs</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Webhooks</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Payment Integrations</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Hosted Checkout</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-purple-500/50 hover:text-white transition-colors cursor-default"
                 >Subscription Flows</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >API Authentication</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Third-Party Integrations</span
               >
             </div>
           </div>
 
           <!-- Authentication & Security -->
           <div
-            class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+            class="bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-gray-800 hover:border-green-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-green group"
           >
-            <div class="flex items-center gap-3 mb-6">
+            <div
+              class="flex items-center gap-4 mb-8 border-b border-gray-800/50 pb-4"
+            >
               <div
-                class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500"
+                class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_0_10px_rgba(34,197,94,0.2)]"
               >
-                <i class="fa-solid fa-shield-halved text-xl"></i>
+                <i class="fa-solid fa-shield-halved text-2xl"></i>
               </div>
-              <h3 class="text-xl font-bold">Auth & Security</h3>
+              <h3
+                class="text-xl font-bold group-hover:text-green-500 transition-colors"
+              >
+                Auth & Security
+              </h3>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
                 >Laravel Sanctum</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
                 >JWT Auth</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Passport</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
                 >Policies & Gates</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Role-Based Access Control</span
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
+                >Role-Based Access (RBAC)</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
                 >HMAC Verification</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
                 >API Keys</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Email Verification</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Password Reset</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-green-500/50 hover:text-white transition-colors cursor-default"
                 >OTP Flows</span
               >
             </div>
@@ -857,95 +1127,103 @@
 
           <!-- Database -->
           <div
-            class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+            class="bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-gray-800 hover:border-cyan-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-cyan group"
           >
-            <div class="flex items-center gap-3 mb-6">
+            <div
+              class="flex items-center gap-4 mb-8 border-b border-gray-800/50 pb-4"
+            >
               <div
-                class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500"
+                class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_0_10px_rgba(6,182,212,0.2)]"
               >
-                <i class="fa-solid fa-database text-xl"></i>
+                <i class="fa-solid fa-database text-2xl"></i>
               </div>
-              <h3 class="text-xl font-bold">Database</h3>
+              <h3
+                class="text-xl font-bold group-hover:text-cyan-500 transition-colors"
+              >
+                Database Design
+              </h3>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >MySQL</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >Eloquent ORM</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Database Design</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >Migrations</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >Relationships</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >Transactions</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >Query Optimization</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-cyan-500/50 hover:text-white transition-colors cursor-default"
                 >Soft Deletes</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >CRUD Systems</span
               >
             </div>
           </div>
 
           <!-- Laravel Ecosystem & Tools -->
           <div
-            class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all"
+            data-aos="zoom-in"
+            data-aos-delay="500"
+            class="bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-blue group"
           >
-            <div class="flex items-center gap-3 mb-6">
+            <div
+              class="flex items-center gap-4 mb-8 border-b border-gray-800/50 pb-4"
+            >
               <div
-                class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500"
+                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_0_10px_rgba(59,130,246,0.2)]"
               >
-                <i class="fa-solid fa-toolbox text-xl"></i>
+                <i class="fa-solid fa-toolbox text-2xl"></i>
               </div>
-              <h3 class="text-xl font-bold">Ecosystem & Tools</h3>
+              <h3
+                class="text-xl font-bold group-hover:text-blue-500 transition-colors"
+              >
+                Ecosystem & Tools
+              </h3>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Filament</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Livewire</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Breeze</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Fortify</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Composer</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Git/GitHub</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-blue-500/50 hover:text-white transition-colors cursor-default"
                 >Postman</span
               >
             </div>
@@ -953,44 +1231,52 @@
 
           <!-- Frontend & Utilities -->
           <div
-            class="bg-card p-6 rounded-xl border border-gray-800 skill-card transition-all"
+            data-aos="zoom-in"
+            data-aos-delay="600"
+            class="bg-card/80 backdrop-blur-md p-8 rounded-2xl border border-gray-800 hover:border-yellow-500/50 hover:-translate-y-2 transition-all duration-300 hover-glow-yellow group"
           >
-            <div class="flex items-center gap-3 mb-6">
+            <div
+              class="flex items-center gap-4 mb-8 border-b border-gray-800/50 pb-4"
+            >
               <div
-                class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500"
+                class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-500 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_0_10px_rgba(234,179,8,0.2)]"
               >
-                <i class="fa-brands fa-html5 text-xl"></i>
+                <i class="fa-brands fa-html5 text-2xl"></i>
               </div>
-              <h3 class="text-xl font-bold">Frontend & Utilities</h3>
+              <h3
+                class="text-xl font-bold group-hover:text-yellow-500 transition-colors"
+              >
+                Frontend & Utils
+              </h3>
             </div>
             <div class="flex flex-wrap gap-2">
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >HTML</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >CSS</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >JavaScript</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >Bootstrap</span
-              >
-              <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
                 >Vue.js</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
-                >React Basics</span
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
+                >JavaScript</span
               >
               <span
-                class="px-3 py-1 bg-darker text-sm text-gray-300 rounded-full border border-gray-700"
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
+                >Tailwind CSS</span
+              >
+              <span
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
                 >Blade</span
+              >
+              <span
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
+                >Intervention Image</span
+              >
+              <span
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
+                >Endroid QR Code</span
+              >
+              <span
+                class="px-3 py-1.5 bg-darker/80 text-sm text-gray-300 rounded-lg border border-gray-700/50 hover:border-yellow-500/50 hover:text-white transition-colors cursor-default"
+                >Imagick</span
               >
             </div>
           </div>
@@ -999,75 +1285,99 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-darker">
-      <div class="container mx-auto px-6">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+    <section id="projects" class="py-20 bg-darker relative">
+      <div class="container mx-auto px-6 relative z-10">
+        <div
+          class="flex flex-col md:flex-row justify-between items-end mb-16"
+          data-aos="fade-up"
+        >
           <div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
-              Featured <span class="text-primary">Projects</span>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">
+              Featured
+              <span class="text-primary relative inline-block">
+                Projects
+                <svg
+                  class="absolute w-full h-3 -bottom-1 left-0 text-primary/30"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 10 100 5"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    fill="transparent"
+                  />
+                </svg>
+              </span>
             </h2>
-            <p class="text-gray-400">
-              A selection of back-end systems I've engineered.
+            <p class="text-gray-400 text-lg mt-4">
+              A selection of my best personal back-end systems and applications.
             </p>
           </div>
           <a
             href="https://github.com/seifelden222"
             target="_blank"
-            class="hidden md:inline-block text-primary hover:text-white transition-colors mt-4 md:mt-0"
+            class="hidden md:inline-flex items-center gap-2 text-white bg-card hover:bg-gray-800 border border-gray-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:border-primary group"
           >
-            View all on GitHub <i class="fa-solid fa-arrow-right ml-1"></i>
+            <i class="fa-brands fa-github text-xl"></i> View all on GitHub
+            <i
+              class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"
+            ></i>
           </a>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Project Card 1: Job-Nest -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            data-aos-delay="100"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover-glow-primary relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-briefcase text-6xl text-gray-600 group-hover:text-primary transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-briefcase text-7xl text-gray-700 group-hover:text-primary transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-primary transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-primary transition-colors"
                 >
                   Job-Nest
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/Job-Nest"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/Job-Nest"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Built Job-Nest, a Laravel API platform for jobs, applications,
                 courses, service requests, proposals, conversations, chatbot
                 messaging, notifications, saved items, and multi-step
                 authentication.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-mono tracking-wide"
                   >Laravel API</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-mono tracking-wide"
                   >Sanctum</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-mono tracking-wide"
                   >MySQL</span
                 >
               </div>
@@ -1076,51 +1386,54 @@
 
           <!-- Project Card 2: Shop -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-secondary/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-secondary/50 transition-all duration-500 hover:-translate-y-2 hover-glow-secondary relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-shop text-6xl text-gray-600 group-hover:text-secondary transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-shop text-7xl text-gray-700 group-hover:text-secondary transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-secondary transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-secondary transition-colors"
                 >
                   Shop System
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/Shop"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/Shop"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-secondary transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Developed a Laravel e-commerce system with products, brands,
                 categories, cart, orders, favorites, search, contact handling,
                 and Sanctum-secured API endpoints.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 font-mono tracking-wide"
                   >Filament</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20 font-mono tracking-wide"
                   >Livewire</span
                 >
               </div>
@@ -1129,51 +1442,54 @@
 
           <!-- Project Card 3: Short_slug -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-green-500/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            data-aos-delay="300"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover-glow-green relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-link text-6xl text-gray-600 group-hover:text-green-500 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-link text-7xl text-gray-700 group-hover:text-green-500 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-green-500 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-green-500 transition-colors"
                 >
                   Short_slug API
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/Short_slug"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/Short_slug"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-green-500 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Built a Sanctum-secured URL shortener API with link CRUD, slug
                 redirection, analytics overview, per-link statistics, and
                 webhook retry endpoints.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-wide"
                   >REST API</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-wide"
                   >Webhooks</span
                 >
               </div>
@@ -1182,51 +1498,54 @@
 
           <!-- Project Card 4: SnapConvert -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-purple-500/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            data-aos-delay="400"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-purple-500/50 transition-all duration-500 hover:-translate-y-2 hover-glow-purple relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-image text-6xl text-gray-600 group-hover:text-purple-500 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-image text-7xl text-gray-700 group-hover:text-purple-500 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-purple-500 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-purple-500 transition-colors"
                 >
                   SnapConvert
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/SnapConvert"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/SnapConvert"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-500 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Created SnapConvert, a PHP image-processing tool for image
                 format conversion, compression, SVG handling, and QR code
                 generation using Intervention Image and Endroid QR Code.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20 font-mono tracking-wide"
                   >PHP</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20 font-mono tracking-wide"
                   >Intervention</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20 font-mono tracking-wide"
                   >Endroid QR</span
                 >
               </div>
@@ -1235,51 +1554,54 @@
 
           <!-- Project Card 5: Laravel Vue Shop -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-blue-400/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            data-aos-delay="500"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-blue-400/50 transition-all duration-500 hover:-translate-y-2 hover-glow-blue relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-brands fa-vuejs text-6xl text-gray-600 group-hover:text-blue-400 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-brands fa-vuejs text-7xl text-gray-700 group-hover:text-blue-400 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors"
                 >
                   Laravel Vue Shop
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/laravel-vue-shop-test"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/laravel-vue-shop-test"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Developed a Laravel + Vue e-commerce dashboard with API
                 authentication, product CRUD, order management, and dashboard
                 statistics.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-blue-400/10 text-blue-400 border border-blue-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-blue-400/10 text-blue-400 border border-blue-400/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-blue-400/10 text-blue-400 border border-blue-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-blue-400/10 text-blue-400 border border-blue-400/20 font-mono tracking-wide"
                   >Vue 3</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-blue-400/10 text-blue-400 border border-blue-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-blue-400/10 text-blue-400 border border-blue-400/20 font-mono tracking-wide"
                   >Inertia.js</span
                 >
               </div>
@@ -1288,51 +1610,54 @@
 
           <!-- Project Card 6: Kindergarten -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-yellow-500/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            data-aos-delay="600"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-yellow-500/50 transition-all duration-500 hover:-translate-y-2 hover-glow-yellow relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-school text-6xl text-gray-600 group-hover:text-yellow-500 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-school text-7xl text-gray-700 group-hover:text-yellow-500 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-yellow-500 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-yellow-500 transition-colors"
                 >
                   Kindergarten App
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/Kindergarten"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/Kindergarten"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-yellow-500 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Built a role-based kindergarten management system with admin,
                 teacher, guardian, and child dashboards covering attendance,
                 finance, reports, schedules, and user management.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 font-mono tracking-wide"
                   >Breeze</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 font-mono tracking-wide"
                   >RBAC</span
                 >
               </div>
@@ -1341,52 +1666,54 @@
 
           <!-- Project Card 7: Feeding -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-emerald-400/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-emerald-400/50 transition-all duration-500 hover:-translate-y-2 hover-glow-green relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-utensils text-6xl text-gray-600 group-hover:text-emerald-400 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-utensils text-7xl text-gray-700 group-hover:text-emerald-400 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors"
                 >
                   Feeding Coaching
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/feeding"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/feeding"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-emerald-400 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Developed a nutrition coaching platform with admin, trainer, and
                 user roles, including subscriptions, payments, consultations,
                 meal tracking, water logs, progress tracking, and nutrition plan
                 management.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 font-mono tracking-wide"
                   >Nutrition</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-emerald-400/10 text-emerald-400 border border-emerald-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 font-mono tracking-wide"
                   >Subscriptions</span
                 >
               </div>
@@ -1395,51 +1722,53 @@
 
           <!-- Project Card 8: Charity Platform -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-rose-400/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-rose-400/50 transition-all duration-500 hover:-translate-y-2 hover-glow-pink relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-hand-holding-heart text-6xl text-gray-600 group-hover:text-rose-400 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-hand-holding-heart text-7xl text-gray-700 group-hover:text-rose-400 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-rose-400 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-rose-400 transition-colors"
                 >
                   Charity Platform
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/new_start"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/new_start"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-rose-400 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Built a Laravel charity donation platform with user dashboards,
                 case listings, urgent cases, wallet charging, donation tracking,
                 admin case management, donor management, and reports.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-rose-400/10 text-rose-400 border border-rose-400/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-rose-400/10 text-rose-400 border border-rose-400/20 font-mono tracking-wide"
                   >Charity</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-rose-400/10 text-rose-400 border border-rose-400/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-rose-400/10 text-rose-400 border border-rose-400/20 font-mono tracking-wide"
                   >Wallet API</span
                 >
               </div>
@@ -1448,134 +1777,102 @@
 
           <!-- Project Card 9: Rescue Backend -->
           <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-red-500/50 transition-all duration-300 relative flex flex-col"
+            data-aos="fade-up"
+            class="group bg-card/50 backdrop-blur-sm rounded-2xl border border-gray-800 overflow-hidden hover:border-red-500/50 transition-all duration-500 hover:-translate-y-2 hover-glow-primary relative flex flex-col"
           >
             <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
+              class="h-56 bg-gradient-to-b from-gray-800/50 to-gray-900 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-gray-800/50"
             >
               <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
+                class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"
               ></div>
               <i
-                class="fa-solid fa-truck-medical text-6xl text-gray-600 group-hover:text-red-500 transition-colors duration-300 transform group-hover:scale-110"
+                class="fa-solid fa-truck-medical text-7xl text-gray-700 group-hover:text-red-500 transition-colors duration-500 transform group-hover:scale-110 drop-shadow-2xl"
               ></i>
             </div>
-            <div class="p-6 flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex justify-between items-start mb-4">
                 <h3
-                  class="text-xl font-bold text-white group-hover:text-red-500 transition-colors"
+                  class="text-2xl font-bold text-white group-hover:text-red-500 transition-colors"
                 >
                   Rescue Backend
                 </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/seifelden222/rescue-backend"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
+                <a
+                  href="https://github.com/seifelden222/rescue-backend"
+                  target="_blank"
+                  class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-500 transition-all duration-300 shrink-0"
+                  ><i class="fa-brands fa-github text-xl"></i
+                ></a>
               </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
+              <p
+                class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed group-hover:text-gray-300 transition-colors"
+              >
                 Built a Laravel car accident support web application with
                 authentication, profile management, help pages, car records,
                 notifications, and settings views.
               </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
+              <div
+                class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-800/50"
+              >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-red-500/10 text-red-500 border border-red-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-red-500/10 text-red-500 border border-red-500/20 font-mono tracking-wide"
                   >Laravel</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-red-500/10 text-red-500 border border-red-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-red-500/10 text-red-500 border border-red-500/20 font-mono tracking-wide"
                   >Sanctum</span
                 >
                 <span
-                  class="text-xs px-2 py-1 rounded bg-red-500/10 text-red-500 border border-red-500/20"
+                  class="text-[11px] px-3 py-1 rounded-full bg-red-500/10 text-red-500 border border-red-500/20 font-mono tracking-wide"
                   >Views</span
                 >
               </div>
             </div>
           </div>
-
-          <!-- Project Card 10: Charity -->
-          <div
-            class="group bg-card rounded-xl border border-gray-800 overflow-hidden hover:border-pink-500/50 transition-all duration-300 relative flex flex-col"
-          >
-            <div
-              class="h-48 bg-gray-800 relative overflow-hidden flex items-center justify-center shrink-0"
-            >
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"
-              ></div>
-              <i
-                class="fa-solid fa-heart text-6xl text-gray-600 group-hover:text-pink-500 transition-colors duration-300 transform group-hover:scale-110"
-              ></i>
-            </div>
-            <div class="p-6 flex flex-col flex-grow">
-              <div class="flex justify-between items-start mb-4">
-                <h3
-                  class="text-xl font-bold text-white group-hover:text-pink-500 transition-colors"
-                >
-                  Charity Website
-                </h3>
-                <div class="flex gap-3 shrink-0">
-                  <a
-                    href="https://github.com/mody674/charity"
-                    target="_blank"
-                    class="text-gray-400 hover:text-white"
-                    title="Code"
-                    ><i class="fa-brands fa-github text-xl"></i
-                  ></a>
-                </div>
-              </div>
-              <p class="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
-                Developed a Laravel charity web application with user and admin
-                pages for donations, stories, project management, reports, user
-                management, and order-related workflows.
-              </p>
-              <div class="flex flex-wrap gap-2 mt-auto">
-                <span
-                  class="text-xs px-2 py-1 rounded bg-pink-500/10 text-pink-500 border border-pink-500/20"
-                  >Laravel</span
-                >
-                <span
-                  class="text-xs px-2 py-1 rounded bg-pink-500/10 text-pink-500 border border-pink-500/20"
-                  >UI Design</span
-                >
-                <span
-                  class="text-xs px-2 py-1 rounded bg-pink-500/10 text-pink-500 border border-pink-500/20"
-                  >Blade</span
-                >
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div class="mt-8 text-center md:hidden">
+        <div class="mt-12 text-center md:hidden" data-aos="fade-up">
           <a
             href="https://github.com/seifelden222"
-            class="text-primary hover:text-white transition-colors font-semibold"
-            >View all projects on GitHub
-            <i class="fa-solid fa-arrow-right ml-1"></i
-          ></a>
+            class="inline-flex items-center gap-2 text-white bg-card hover:bg-gray-800 border border-gray-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:border-primary group"
+          >
+            <i class="fa-brands fa-github text-xl"></i> View all on GitHub
+            <i
+              class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"
+            ></i>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-dark">
-      <div class="container mx-auto px-6">
+    <section id="contact" class="py-24 bg-dark relative overflow-hidden">
+      <!-- Decorators -->
+      <div
+        class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]"
+      ></div>
+      <div
+        class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-[100px]"
+      ></div>
+
+      <div class="container mx-auto px-6 relative z-10">
         <div
-          class="max-w-4xl mx-auto bg-gradient-to-br from-card to-gray-900 rounded-2xl p-8 md:p-12 border border-gray-800 shadow-2xl"
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+          class="max-w-4xl mx-auto bg-gradient-to-br from-card/80 to-gray-900/80 backdrop-blur-md rounded-3xl p-8 md:p-14 border border-gray-800 shadow-2xl relative overflow-hidden"
         >
-          <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold mb-4">
+          <!-- Shiny edge effect -->
+          <div
+            class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+          ></div>
+
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4">
               Let's <span class="text-primary">Connect</span>
             </h2>
-            <p class="text-gray-400">
-              Open for freelance projects and job opportunities.
+            <p class="text-gray-400 text-lg">
+              Open for freelance projects, collaborations, and job
+              opportunities.
             </p>
           </div>
 
@@ -1583,30 +1880,32 @@
             <div class="space-y-6">
               <a
                 href="tel:01032484794"
-                class="flex items-center gap-4 p-4 rounded-lg bg-darker border border-gray-800 hover:border-primary transition-all group"
+                class="flex items-center gap-5 p-5 rounded-xl bg-darker/50 border border-gray-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10"
               >
                 <div
-                  class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"
+                  class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 group-hover:scale-110"
                 >
-                  <i class="fa-solid fa-phone"></i>
+                  <i class="fa-solid fa-phone text-xl"></i>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-500">Call Me</p>
-                  <p class="text-white font-semibold font-mono">01032484794</p>
+                  <p class="text-sm text-gray-500 mb-1">Call Me</p>
+                  <p class="text-white font-semibold font-mono tracking-wider">
+                    01032484794
+                  </p>
                 </div>
               </a>
 
               <a
                 href="mailto:seifeldenhamdy@gmail.com"
-                class="flex items-center gap-4 p-4 rounded-lg bg-darker border border-gray-800 hover:border-primary transition-all group"
+                class="flex items-center gap-5 p-5 rounded-xl bg-darker/50 border border-gray-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10"
               >
                 <div
-                  class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"
+                  class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 group-hover:scale-110"
                 >
-                  <i class="fa-solid fa-envelope"></i>
+                  <i class="fa-solid fa-envelope text-xl"></i>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-500">Email Me</p>
+                  <p class="text-sm text-gray-500 mb-1">Email Me</p>
                   <p class="text-white font-semibold break-all">
                     seifeldenhamdy@gmail.com
                   </p>
@@ -1615,40 +1914,40 @@
 
               <a
                 href="#"
-                class="flex items-center gap-4 p-4 rounded-lg bg-darker border border-gray-800 hover:border-primary transition-all group"
+                class="flex items-center gap-5 p-5 rounded-xl bg-darker/50 border border-gray-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10"
               >
                 <div
-                  class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"
+                  class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 group-hover:scale-110"
                 >
-                  <i class="fa-solid fa-location-dot"></i>
+                  <i class="fa-solid fa-location-dot text-xl"></i>
                 </div>
                 <div>
-                  <p class="text-sm text-gray-500">Location</p>
+                  <p class="text-sm text-gray-500 mb-1">Location</p>
                   <p class="text-white font-semibold">El Mansoura, Egypt</p>
                 </div>
               </a>
             </div>
 
-            <div class="flex flex-col justify-center space-y-6">
-              <p class="text-gray-300">
+            <div class="flex flex-col justify-center space-y-8">
+              <p class="text-gray-300 text-lg leading-relaxed">
                 I'm currently available for new opportunities. Whether you have
-                a question or just want to say hi, I'll try my best to get back
-                to you!
+                a question, a project idea, or just want to say hi, I'll try my
+                best to get back to you!
               </p>
-              <div class="flex gap-4">
+              <div class="flex flex-col sm:flex-row gap-4">
                 <a
                   href="https://www.linkedin.com/in/seifelden-hamdy-a566ba358"
                   target="_blank"
-                  class="flex-1 py-3 bg-[#0077b5] text-white rounded text-center font-semibold hover:opacity-90 transition-opacity"
+                  class="flex-1 py-4 bg-[#0077b5] text-white rounded-xl text-center font-bold hover:bg-[#006097] transition-colors duration-300 flex items-center justify-center gap-2 hover:-translate-y-1 shadow-lg shadow-[#0077b5]/20"
                 >
-                  <i class="fa-brands fa-linkedin mr-2"></i> LinkedIn
+                  <i class="fa-brands fa-linkedin text-xl"></i> LinkedIn
                 </a>
                 <a
                   href="https://github.com/seifelden222"
                   target="_blank"
-                  class="flex-1 py-3 bg-[#333] text-white rounded text-center font-semibold hover:opacity-90 transition-opacity"
+                  class="flex-1 py-4 bg-gray-800 text-white rounded-xl text-center font-bold hover:bg-gray-700 transition-colors duration-300 flex items-center justify-center gap-2 hover:-translate-y-1 shadow-lg shadow-gray-800/20 border border-gray-700"
                 >
-                  <i class="fa-brands fa-github mr-2"></i> GitHub
+                  <i class="fa-brands fa-github text-xl"></i> GitHub
                 </a>
               </div>
             </div>
@@ -1659,16 +1958,39 @@
 
     <!-- Footer -->
     <footer
-      class="py-8 border-t border-gray-800 text-center text-gray-500 text-sm"
+      class="py-8 border-t border-gray-800/50 bg-darker text-center text-gray-500 text-sm relative z-10"
     >
-      <p>&copy; 2025 Seif Elden Hamdy. All rights reserved.</p>
-      <p class="mt-2">
-        Built with <i class="fa-solid fa-heart text-primary mx-1"></i> and
-        Laravel Passion.
+      <p>&copy; 2026 Seif Elden Hamdy. All rights reserved.</p>
+      <p class="mt-2 flex items-center justify-center gap-2">
+        Built with
+        <i class="fa-solid fa-heart text-primary animate-pulse"></i> and Laravel
+        Passion.
       </p>
     </footer>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
+      // Initialize AOS Animation Library
+      AOS.init({
+        once: true, // whether animation should happen only once - while scrolling down
+        offset: 50, // offset (in px) from the original trigger point
+        duration: 800, // values from 0 to 3000, with step 50ms
+        easing: "ease-out-cubic", // default easing for AOS animations
+      });
+
+      // Scroll Progress Bar
+      window.addEventListener("scroll", () => {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+      });
+
       // Mobile Menu Toggle
       const btn = document.getElementById("mobile-menu-btn");
       const menu = document.getElementById("mobile-menu");
@@ -1703,9 +2025,10 @@
       window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
           navbar.classList.add("shadow-lg");
-          navbar.classList.replace("bg-opacity-0", "bg-opacity-90");
+          navbar.style.background = "rgba(15, 23, 42, 0.9)";
         } else {
           navbar.classList.remove("shadow-lg");
+          navbar.style.background = "rgba(15, 23, 42, 0.7)";
         }
       });
     </script>
